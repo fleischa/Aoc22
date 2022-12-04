@@ -18,19 +18,19 @@ internal class Program
 
 	private static void FindDuplicates(string line)
 	{
-		Rucksack rucksack = Rucksack.Parse(line, null);
+		Rucksack rucksack = Rucksack.Parse(line);
 
-		Program.duplicateSum += rucksack.Items.Distinct()
+		Program.duplicateSum += rucksack.AllItems.Distinct()
 			.Where(i => rucksack.Compartments.All(c => c.Contains(i)))
 			.Sum();
 	}
 
 	private static void FindBadge(string[] lines)
 	{
-		Rucksack[] rucksacks = lines.Select(r => Rucksack.Parse(r, null)).ToArray();
+		Rucksack[] rucksacks = lines.Select(r => Rucksack.Parse(r)).ToArray();
 
-		Program.badgeSum += rucksacks.SelectMany(r => r.Items).Distinct()
-			.Where(i => rucksacks.All(r => r.Items.Contains(i)))
+		Program.badgeSum += rucksacks.SelectMany(r => r.AllItems).Distinct()
+			.Where(i => rucksacks.All(r => r.AllItems.Contains(i)))
 			.Sum();
 	}
 }

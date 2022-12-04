@@ -7,19 +7,21 @@ public class LineChunkProcessor<TState>
 	private readonly Action<string[], TState?>? handler;
 	private readonly string inputFile;
 
-	public LineChunkProcessor(Action<string[], TState?> handler, int chunkSize, string inputFile = "input")
+	public LineChunkProcessor(Action<string[], TState?> handler, int chunkSize, string inputFile = "input.txt")
 	{
 		this.handler = handler;
 		this.chunkSize = chunkSize;
 		this.inputFile = inputFile;
 	}
 
-	public LineChunkProcessor(Func<string[], TState?, bool> cancelableHandler, int chunkSize, string inputFile = "input")
+	public LineChunkProcessor(Func<string[], TState?, bool> cancelableHandler, int chunkSize, string inputFile = "input.txt")
 	{
 		this.cancelableHandler = cancelableHandler;
 		this.chunkSize = chunkSize;
 		this.inputFile = inputFile;
 	}
+
+	public int LinesRead { get; private set; }
 
 	public async Task Process(TState? state = default)
 	{
@@ -29,6 +31,8 @@ public class LineChunkProcessor<TState>
 
 		while (await reader.ReadLineAsync() is { } line)
 		{
+			this.LinesRead++;
+
 			chunk.Add(line);
 
 			if (chunk.Count >= this.chunkSize)

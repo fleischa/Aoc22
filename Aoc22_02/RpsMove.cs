@@ -1,6 +1,6 @@
 ﻿namespace Aoc22_02;
 
-internal enum RpsSymbol
+internal enum RpsMove
 {
 	Rock,
 	Paper,
