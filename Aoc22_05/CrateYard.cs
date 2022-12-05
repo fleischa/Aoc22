@@ -84,6 +84,6 @@ internal class CrateYard : IParsable<CrateYard?>
 
 	public string GetTopLayer()
 	{
-		return string.Join(string.Empty, this.Stacks.Select(s => s.Count > 0 ? s.Peek() : ' '));
+		return new string(this.Stacks.Select(s => s.Any() ? s.Peek() : ' ').ToArray());
 	}
 }
