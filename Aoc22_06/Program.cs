@@ -13,8 +13,7 @@ internal class Program
 
 	private static int FindMarker(string signal, int markerLength)
 	{
-		return Enumerable.Range(0, signal.Length - markerLength + 1)
-			       .First(i => signal.Substring(i, markerLength).Distinct().Count() == markerLength) +
-		       markerLength;
+		return Enumerable.Range(markerLength, signal.Length)
+			.First(i => signal.Substring(i - markerLength, markerLength).Distinct().Count() == markerLength);
 	}
 }
