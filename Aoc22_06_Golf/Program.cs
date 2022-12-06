@@ -1,1 +1,1 @@
-﻿var s=File.OpenText("i").ReadLine();void f(int m)=>Console.WriteLine(Enumerable.Range(m,s.Length).First(i=>s[(i-m)..i].Distinct().Count()==m));f(4);f(14);
+﻿var s=File.OpenText("i").ReadLine();void f(int m)=>Console.WriteLine(s.Select((_,i)=>i).First(i=>s[i..(i+m)].Distinct().Count()==m)+m);f(4);f(14);
