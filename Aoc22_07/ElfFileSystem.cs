@@ -8,7 +8,7 @@ internal class ElfFileSystem
 
 	public readonly List<ElfDirectory> DirectoryCache = new();
 
-	public ElfDirectory Root { get; } = new ElfDirectory
+	public ElfDirectory Root { get; } = new()
 	{
 		Name = "/"
 	};

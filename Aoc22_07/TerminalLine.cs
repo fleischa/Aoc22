@@ -2,11 +2,11 @@
 
 internal record TerminalLine : IParsable<TerminalLine?>
 {
-	public TerminalLineKind Kind { get; init; }
+	public TerminalLineKind Kind { get; private init; }
 
-	public string Name { get; init; } = string.Empty;
+	public string Name { get; private init; } = string.Empty;
 
-	public int Size { get; init; }
+	public int Size { get; private init; }
 
 	public static TerminalLine Parse(string s, IFormatProvider? provider = null)
 	{
