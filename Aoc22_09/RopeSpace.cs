@@ -35,12 +35,3 @@ internal class RopeSpace
         this.UniqueTailLocations.Add(this.Rope.Last());
     }
 }
-
-
-
-
-
-
-
-
-
