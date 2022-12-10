@@ -4,24 +4,16 @@ using AocCommon;
 
 internal class Program
 {
-	private static readonly int[] samples = { 20, 60, 100, 140, 180, 220 };
+	private static readonly int[] sampleCycles = { 20, 60, 100, 140, 180, 220 };
 
 	private static async Task Main(string[] args)
 	{
-		int regX = 1;
-		int cycle = 0;
+		ElfCommunicator elfCommunicator = new(Program.sampleCycles);
 
-		await new SingleLineProcessor<object>((line, _) =>
-		{
-			string[] tokens = line.Split(' ');
+		await new SingleLineProcessor<ElfCommunicator>((line, c) => { c!.ProcessInstruction(line); }).Process(elfCommunicator);
 
-			cycle++;
-
-			if (tokens[0] == "addx")
-			{
-				cycle++;
-				regX += int.Parse(tokens[1]);
-			}
-		}).Process();
+		Console.WriteLine($"sample sum: {elfCommunicator.SampleSum}");
+		Console.WriteLine();
+		Console.WriteLine(elfCommunicator);
 	}
 }

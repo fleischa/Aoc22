@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AocCommon\AocCommon.csproj"/>
+        <ProjectReference Include="..\AocCommon\AocCommon.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="input.txt"/>
+        <None Remove="input.txt" />
         <Content Include="input.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
