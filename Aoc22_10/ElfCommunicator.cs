@@ -49,6 +49,6 @@ internal class ElfCommunicator
 
 	public override string ToString()
 	{
-		return string.Join('\n', this.ScreenBuffer.Select(b => b ? '#' : ' ').Chunk(ElfCommunicator.ScreenWidth).Select(c => new string(c)));
+		return string.Join('\n', this.ScreenBuffer.Select(b => b ? '█' : ' ').Chunk(ElfCommunicator.ScreenWidth).Select(c => new string(c)));
 	}
 }
