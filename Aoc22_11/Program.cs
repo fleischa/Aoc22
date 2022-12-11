@@ -4,16 +4,16 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        MonkeySphere monkeySphere = Program.CreateMonkeySphere();
-        monkeySphere.ProcessRounds(20, true);
-        Console.WriteLine($"monkey business: {monkeySphere.MonkeyBusiness}");
+        //MonkeyPack monkeyPack = Program.CreateMonkeyPack();
+        //monkeyPack.ProcessRounds(20);
+        //Console.WriteLine($"monkey business: {monkeyPack.MonkeyBusiness}");
 
-        monkeySphere = Program.CreateMonkeySphere();
-        monkeySphere.ProcessRounds(10000, false);
-        Console.WriteLine($"serious monkey business: {monkeySphere.MonkeyBusiness}");
+        MonkeyPack monkeyPack = Program.CreateMonkeyPack();
+        monkeyPack.ProcessRounds(10000);
+        Console.WriteLine($"serious monkey business: {monkeyPack.MonkeyBusiness}");
     }
 
-    private static MonkeySphere CreateMonkeySphere()
+    private static MonkeyPack CreateMonkeyPack()
     {
         return new(
             new Monkey(new[] { 85, 77, 77 }, MonkeyOperation.Multiply, 7, 19, 6, 7),
