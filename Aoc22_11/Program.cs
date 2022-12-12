@@ -26,7 +26,3 @@ internal class Program
             new Monkey(new[] { 50, 66, 61, 92, 64, 78 }, MonkeyOperation.Add, 3, 2, 5, 1));
     }
 }
-
-
-
-
