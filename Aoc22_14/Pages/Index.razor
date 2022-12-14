@@ -1,21 +1,3 @@
 ﻿@page "/"
 
-@if (sandPit != null)
-{
-    <div style="display: grid; grid-template-columns:repeat(@sandPit.Width, 4px); grid-template-rows:repeat(@sandPit.Height, 4px);">
-        @for (int y = 0; y < sandPit.Height; y++)
-        {
-            for (int x = 0; x < sandPit.Width; x++)
-            {
-                if (sandPit.SandPitStates[x, y] == SandPitState.Rock)
-                {
-                    <div @key="@GetCellKey(x, y)" style="background-color: gray; grid-column: @(x+1); grid-row: @(y+1);"></div>
-                }
-                else if (sandPit.SandPitStates[x, y] == SandPitState.Sand)
-                {
-                    <div @key="@GetCellKey(x, y)" style="background-color: sandybrown; grid-column: @(x+1); grid-row: @(y+1);"></div>
-                }
-            }
-        }
-    </div>
-}
+<BECanvas @ref="canvasRef" Width="@canvasWidth" Height="@canvasHeight"></BECanvas>

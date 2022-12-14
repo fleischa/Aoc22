@@ -3,7 +3,6 @@
 public class SandPit
 {
 	private (int x, int y)? falling;
-
 	private int xOffset;
 
 	public SandPit(IEnumerable<RockPath> rockPaths)
@@ -11,25 +10,25 @@ public class SandPit
 		this.Initialize(rockPaths);
 	}
 
-	public SandPitState[,] SandPitStates { get; private set; }
+	public SandPitState[,] SandPitStates { get; private set; } = null!;
 
 	public int Width { get; private set; }
 
 	public int Height { get; private set; }
 
-	public bool Tick()
+	public TickResult Tick()
 	{
 		if (this.falling == null)
 		{
 			if (this.SandPitStates[500 - this.xOffset, 0] == SandPitState.Sand)
 			{
 				// sand has reached the top
-				return false;
+				return new TickResult(false, null, null);
 			}
-			
+
 			this.SandPitStates[500 - this.xOffset, 0] = SandPitState.Sand;
 			this.falling = (500 - this.xOffset, 0);
-			return true;
+			return new TickResult(true, null, this.falling);
 		}
 
 		(int x, int y) f = this.falling.Value;
@@ -38,7 +37,7 @@ public class SandPit
 		{
 			// we reached the abyss
 			this.SandPitStates[f.x, f.y] = SandPitState.Air;
-			return false;
+			return new TickResult(false, this.falling, null);
 		}
 
 		SandPitState below = this.SandPitStates[f.x, f.y + 1];
@@ -50,14 +49,14 @@ public class SandPit
 				this.SandPitStates[f.x, f.y] = SandPitState.Air;
 				this.SandPitStates[f.x, f.y + 1] = SandPitState.Sand;
 				this.falling = (f.x, f.y + 1);
-				return true;
+				return new TickResult(true, (f.x, f.y), this.falling);
 			case SandPitState.Rock:
 			case SandPitState.Sand:
 				if (f.x <= 0)
 				{
 					// falling out the left side of the pit into the abyss
 					this.SandPitStates[f.x, f.y] = SandPitState.Air;
-					return false;
+					return new TickResult(false, this.falling, null);
 				}
 
 				if (this.SandPitStates[f.x - 1, f.y + 1] == SandPitState.Air)
@@ -66,28 +65,28 @@ public class SandPit
 					this.SandPitStates[f.x, f.y] = SandPitState.Air;
 					this.SandPitStates[f.x - 1, f.y + 1] = SandPitState.Sand;
 					this.falling = (f.x - 1, f.y + 1);
-					return true;
+					return new TickResult(true, (f.x, f.y), this.falling);
 				}
 
 				if (f.x >= this.Width - 1)
 				{
 					// falling out the right side of the pit into the abyss
 					this.SandPitStates[f.x, f.y] = SandPitState.Air;
-					return false;
+					return new TickResult(false, this.falling, null);
 				}
-				
+
 				if (this.SandPitStates[f.x + 1, f.y + 1] == SandPitState.Air)
 				{
 					// sand flowing to the right
 					this.SandPitStates[f.x, f.y] = SandPitState.Air;
 					this.SandPitStates[f.x + 1, f.y + 1] = SandPitState.Sand;
 					this.falling = (f.x + 1, f.y + 1);
-					return true;
+					return new TickResult(true, (f.x, f.y), this.falling);
 				}
 
 				// settle
 				this.falling = null;
-				return true;
+				return new TickResult(true, null, null);
 
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -104,12 +103,9 @@ public class SandPit
 
 		int minX = 500 - this.Height - 10;
 		int maxX = 500 + this.Height + 10;
-		
-		//int minX = points.Min(p => p.x);
-		//int maxX = points.Max(p => p.x);
-		
+
 		this.Width = maxX - minX + 1;
-		
+
 		this.SandPitStates = new SandPitState[this.Width, this.Height];
 
 		this.xOffset = minX;
@@ -149,6 +145,8 @@ public class SandPit
 		}
 	}
 }
+
+
 
 
 

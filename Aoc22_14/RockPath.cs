@@ -1,6 +1,6 @@
 ﻿namespace Aoc22_14;
 
-public class RockPath : IParsable<RockPath?>
+public class RockPath
 {
 	public (int x, int y)[] Points { get; private init; } = null!;
 
