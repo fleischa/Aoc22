@@ -11,7 +11,7 @@ public partial class Index
 	private int canvasHeight;
 	private BECanvasComponent canvasRef = null!;
 	private int canvasWidth;
-	private PeriodicTimer periodicTimer;
+	private PeriodicTimer? periodicTimer;
 	private SandPit? sandPit;
 
 	[Inject]
@@ -43,7 +43,7 @@ public partial class Index
 		this.canvas2DContext = await this.canvasRef.CreateCanvas2DAsync();
 		await this.DrawFull();
 
-		double maxFps = 120;
+		double maxFps = 240;
 		this.periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1.0 / maxFps));
 		while (await this.periodicTimer.WaitForNextTickAsync())
 		{
@@ -87,7 +87,7 @@ public partial class Index
 		await this.canvas2DContext.BeginBatchAsync();
 
 		await this.canvas2DContext.SetFillStyleAsync("white");
-		await this.canvas2DContext.FillRectAsync(0, 0, Index.cellSize * this.sandPit.Width, Index.cellSize * this.sandPit.Height);
+		await this.canvas2DContext.FillRectAsync(0, 0, Index.cellSize * this.sandPit!.Width, Index.cellSize * this.sandPit.Height);
 
 		for (int y = 0; y < this.sandPit!.Height; y++)
 		{

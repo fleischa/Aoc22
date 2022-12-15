@@ -1,4 +1,5 @@
-﻿using Aoc22_13;
+﻿namespace Aoc22_13;
+
 using AocCommon;
 
 internal class Program
@@ -42,3 +43,4 @@ internal class Program
 		Console.WriteLine($"decoder key: {(packets.IndexOf(divider1) + 1) * (packets.IndexOf(divider2) + 1)}");
 	}
 }
+
