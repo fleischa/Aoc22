@@ -14,6 +14,28 @@ public class PipeNetwork
 		}
 	}
 
+	public void FindMaxFlowRate(int numberOfAgents, int minutesLeft)
+	{
+		Valve startValve = this.Valves["AA"];
+
+		ValveOpeningAgent[] agents = Enumerable.Range(0, numberOfAgents)
+		.Select(a => new ValveOpeningAgent(a,
+											new ValvePathStep
+											{
+												Valve = startValve,
+												MinutesLeft = minutesLeft
+											}))
+		.ToArray();
+
+		int flowRate = 0;
+
+		while (true)
+		{
+			ValveOpeningAgent agent = agents.OrderBy(a => a.ValvePath.Peek().Reactivation).ThenBy(a => a.Id).First();
+			// TODO
+		}
+	}
+
 	public void FindMaxFlowRate()
 	{
 		Valve startValve = this.Valves["AA"];
@@ -60,6 +82,11 @@ public class PipeNetwork
 		}
 	}
 }
+
+
+
+
+
 
 
 
